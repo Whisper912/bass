@@ -10,7 +10,7 @@ function cn(...inputs: ClassValue[]) {
 interface FretboardProps {
   showNotes: boolean;
   onFretClick: (string: string, fret: number) => void;
-  feedback?: { string: string; fret: number; type: 'correct' | 'wrong' } | null;
+  feedback?: { string: string; fret: number; type: 'correct' | 'wrong' | 'timeout' } | null;
   currentNote?: string;
   gameState?: string;
 }
@@ -74,7 +74,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
                   // Logic for flashing correct position
                   const shouldFlash = gameState === 'feedback' && 
                                     note === currentNote && 
-                                    (feedback === null || feedback.type === 'wrong' || (feedback.type === 'correct' && !isFeedback));
+                                    (feedback === null || feedback.type === 'wrong' || feedback.type === 'timeout' || (feedback.type === 'correct' && !isFeedback));
 
                   return (
                     <div 
