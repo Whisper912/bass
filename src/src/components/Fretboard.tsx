@@ -83,12 +83,6 @@ export const Fretboard: React.FC<FretboardProps> = ({
                       onClick={() => onFretClick(stringName, fret)}
                       aria-label={`${stringName} string fret ${fret}`}
                     >
-                      {fret === 0 && (
-                        <div className="absolute left-1 top-1/2 -translate-y-1/2 z-30 text-[8px] sm:text-[10px] font-black text-white/70 pointer-events-none">
-                          {stringName}
-                        </div>
-                      )}
-
                       {/* String Line */}
                       <div 
                         className="absolute w-full bg-gradient-to-b from-gray-400 to-gray-600 shadow-sm pointer-events-none" 
