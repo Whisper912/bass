@@ -4,8 +4,14 @@
  * Chromatic scale and C Major notes
  */
 
-export const BASS_STRINGS = ['G', 'D', 'A', 'E']; // From high to low
+export const BASS_STRINGS = ['G', 'D', 'A', 'E']; // Top to bottom, matching bass tab order.
 export const STRING_COLORS = ['#d1d5db', '#9ca3af', '#6b7280', '#4b5563'];
+export const STRING_GAUGES: Record<string, number> = {
+  'G': 1.5,
+  'D': 2,
+  'A': 2.5,
+  'E': 3
+};
 
 export const CHROMATIC_SCALE = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 export const C_MAJOR_NOTES = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];

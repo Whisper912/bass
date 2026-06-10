@@ -1,7 +1,7 @@
 import React from 'react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import { BASS_STRINGS, getNoteAt, C_MAJOR_NOTES } from '../constants/bassConfig';
+import { BASS_STRINGS, STRING_GAUGES, getNoteAt, C_MAJOR_NOTES } from '../constants/bassConfig';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -66,7 +66,7 @@ export const Fretboard: React.FC<FretboardProps> = ({
 
               {/* Strings */}
               <div className="flex flex-col justify-between h-full py-2 z-10">
-                {BASS_STRINGS.map((stringName, stringIdx) => {
+                {BASS_STRINGS.map((stringName) => {
                   const note = getNoteAt(stringName, fret);
                   const isFeedback = feedback?.string === stringName && feedback?.fret === fret;
                   const isCMajor = C_MAJOR_NOTES.includes(note);
@@ -81,11 +81,18 @@ export const Fretboard: React.FC<FretboardProps> = ({
                       key={`${stringName}-${fret}`}
                       className="group relative flex-1 flex items-center justify-center cursor-pointer"
                       onClick={() => onFretClick(stringName, fret)}
+                      aria-label={`${stringName} string fret ${fret}`}
                     >
+                      {fret === 0 && (
+                        <div className="absolute left-1 top-1/2 -translate-y-1/2 z-30 text-[8px] sm:text-[10px] font-black text-white/70 pointer-events-none">
+                          {stringName}
+                        </div>
+                      )}
+
                       {/* String Line */}
                       <div 
                         className="absolute w-full bg-gradient-to-b from-gray-400 to-gray-600 shadow-sm pointer-events-none" 
-                        style={{ height: `${(4 - stringIdx) * 0.5 + 1.5}px` }} 
+                        style={{ height: `${STRING_GAUGES[stringName]}px` }} 
                       />
                       
                       {/* Note Bubble */}
