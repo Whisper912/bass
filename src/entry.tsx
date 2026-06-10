@@ -3,7 +3,7 @@ import React from 'react';
     
           import { NextUIProvider } from '@nextui-org/react';
       
-    import App from './App';
+import App from './src/App';
     import './entry.css';
     
     
