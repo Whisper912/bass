@@ -9,7 +9,7 @@ import { twMerge } from 'tailwind-merge';
 import { Fretboard } from './Fretboard';
 import { useSound } from '../hooks/useSound';
 import { useMobileLandscape } from '../hooks/useMobileLandscape';
-import { C_MAJOR_NOTES, getNoteAt, getFrequency, BASS_STRINGS } from '../constants/bassConfig';
+import { C_MAJOR_NOTES, getNoteAt, getFrequency, getLowestPositionForNote } from '../constants/bassConfig';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -61,14 +61,8 @@ export const Game: React.FC = () => {
     setGameState('showingNote');
     setFeedback(null);
 
-    const possiblePositions: {s: string, f: number}[] = [];
-    BASS_STRINGS.forEach(s => {
-      for(let f=0; f<=12; f++) {
-        if(getNoteAt(s, f) === randomNote) possiblePositions.push({s, f});
-      }
-    });
-    const pos = possiblePositions[Math.floor(Math.random() * possiblePositions.length)];
-    playNote(getFrequency(pos.s, pos.f));
+    const pos = getLowestPositionForNote(randomNote);
+    playNote(getFrequency(pos.string, pos.fret));
 
     if (transitionTimerRef.current) clearTimeout(transitionTimerRef.current);
     transitionTimerRef.current = window.setTimeout(() => {

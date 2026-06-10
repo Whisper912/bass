@@ -39,3 +39,19 @@ export const getFrequency = (string: string, fret: number): number => {
   const base = baseFreqs[string];
   return base * Math.pow(2, fret / 12);
 };
+
+export const getLowestPositionForNote = (note: string): { string: string; fret: number } => {
+  const positions: { string: string; fret: number; frequency: number }[] = [];
+
+  BASS_STRINGS.forEach((string) => {
+    for (let fret = 0; fret <= 12; fret += 1) {
+      if (getNoteAt(string, fret) === note) {
+        positions.push({ string, fret, frequency: getFrequency(string, fret) });
+      }
+    }
+  });
+
+  return positions.reduce((lowest, position) => (
+    position.frequency < lowest.frequency ? position : lowest
+  ), positions[0]);
+};
